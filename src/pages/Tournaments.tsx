@@ -108,15 +108,15 @@ const allTournaments: TournamentProps[] = [
 
 const Tournaments = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sportFilter, setSportFilter] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [sportFilter, setSportFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [filteredTournaments, setFilteredTournaments] = useState(allTournaments);
 
   const handleFilter = () => {
     const filtered = allTournaments.filter(tournament => {
       const nameMatch = tournament.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const sportMatch = !sportFilter || tournament.sport === sportFilter;
-      const statusMatch = !statusFilter || tournament.status === statusFilter;
+      const sportMatch = sportFilter === "all" || tournament.sport === sportFilter;
+      const statusMatch = statusFilter === "all" || tournament.status === statusFilter;
       return nameMatch && sportMatch && statusMatch;
     });
     
@@ -125,8 +125,8 @@ const Tournaments = () => {
 
   const handleReset = () => {
     setSearchTerm("");
-    setSportFilter("");
-    setStatusFilter("");
+    setSportFilter("all");
+    setStatusFilter("all");
     setFilteredTournaments(allTournaments);
   };
 
@@ -164,7 +164,7 @@ const Tournaments = () => {
                     <SelectValue placeholder="All Sports" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Sports</SelectItem>
+                    <SelectItem value="all">All Sports</SelectItem>
                     <SelectItem value="Basketball">Basketball</SelectItem>
                     <SelectItem value="Soccer">Soccer</SelectItem>
                     <SelectItem value="Tennis">Tennis</SelectItem>
@@ -179,7 +179,7 @@ const Tournaments = () => {
                     <SelectValue placeholder="All Statuses" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Statuses</SelectItem>
+                    <SelectItem value="all">All Statuses</SelectItem>
                     <SelectItem value="upcoming">Upcoming</SelectItem>
                     <SelectItem value="ongoing">Ongoing</SelectItem>
                     <SelectItem value="completed">Completed</SelectItem>

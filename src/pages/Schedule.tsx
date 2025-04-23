@@ -117,7 +117,7 @@ const allMatches = [
 ];
 
 const Schedule = () => {
-  const [sportFilter, setSportFilter] = useState("");
+  const [sportFilter, setSportFilter] = useState("all");
   const [dateFilter, setDateFilter] = useState("all");
   const [filteredMatches, setFilteredMatches] = useState(allMatches);
   
@@ -127,7 +127,7 @@ const Schedule = () => {
   const handleFilter = () => {
     let filtered = [...allMatches];
     
-    if (sportFilter) {
+    if (sportFilter !== "all") {
       filtered = filtered.filter(match => match.tournament.sport === sportFilter);
     }
     
@@ -139,7 +139,7 @@ const Schedule = () => {
   };
   
   const handleReset = () => {
-    setSportFilter("");
+    setSportFilter("all");
     setDateFilter("all");
     setFilteredMatches(allMatches);
   };
@@ -179,7 +179,7 @@ const Schedule = () => {
                     <SelectValue placeholder="All Sports" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Sports</SelectItem>
+                    <SelectItem value="all">All Sports</SelectItem>
                     <SelectItem value="Basketball">Basketball</SelectItem>
                     <SelectItem value="Soccer">Soccer</SelectItem>
                     <SelectItem value="Tennis">Tennis</SelectItem>

@@ -101,13 +101,13 @@ const allPlayers = [
 
 const Players = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sportFilter, setSportFilter] = useState("");
+  const [sportFilter, setSportFilter] = useState("all");
   const [filteredPlayers, setFilteredPlayers] = useState(allPlayers);
 
   const handleFilter = () => {
     const filtered = allPlayers.filter(player => {
       const nameMatch = player.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const sportMatch = !sportFilter || player.sports.includes(sportFilter);
+      const sportMatch = sportFilter === "all" || player.sports.includes(sportFilter);
       return nameMatch && sportMatch;
     });
     
@@ -116,7 +116,7 @@ const Players = () => {
 
   const handleReset = () => {
     setSearchTerm("");
-    setSportFilter("");
+    setSportFilter("all");
     setFilteredPlayers(allPlayers);
   };
 
@@ -154,7 +154,7 @@ const Players = () => {
                     <SelectValue placeholder="All Sports" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Sports</SelectItem>
+                    <SelectItem value="all">All Sports</SelectItem>
                     <SelectItem value="Basketball">Basketball</SelectItem>
                     <SelectItem value="Soccer">Soccer</SelectItem>
                     <SelectItem value="Tennis">Tennis</SelectItem>
